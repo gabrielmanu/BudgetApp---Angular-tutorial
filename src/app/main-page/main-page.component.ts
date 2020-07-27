@@ -9,21 +9,28 @@ import { UpdateEvent } from "../budget-item-list/budget-item-list.component";
 })
 export class MainPageComponent implements OnInit {
   budgetItems: BudgetItem[] = new Array<BudgetItem>();
-  totalBudget: any;
+
+
+  get totalBudget() {
+    return this.budgetItems
+    .map((obj) => obj.amount)
+    .reduce((acc, value) => acc + value, 0);
+  }
+
   constructor() {}
 
   ngOnInit() {}
 
   addItem(newItem: BudgetItem) {
     this.budgetItems.push(newItem);
-    this.totalBudget = this.budgetItems.map(obj => obj.amount).reduce((acc, value) => acc + value, 0);
-    console.log(this.totalBudget);
+    this.totalBudget;
+    console.log("total budget getter run")
   }
 
   deleteItem(item: BudgetItem) {
     let index = this.budgetItems.indexOf(item);
     this.budgetItems.splice(index, 1);
-    this.totalBudget -= item.amount;
+
   }
 
   updateItem(updateEvent: UpdateEvent) {
@@ -33,15 +40,11 @@ export class MainPageComponent implements OnInit {
       updateEvent.new;
     //updatetotal budget
 
-    // cfe: create a get-er for totalBudget, 
-    this.totalBudget -= updateEvent.old.amount;
-    this.totalBudget += updateEvent.new.amount;
   }
 
-  onClearClick(){
-
+  onClearClick() {
     // Clear budgetItems Array
-    // Clear budget-items container 
+    // Clear budget-items container
     // Update total budget display
   }
 }
