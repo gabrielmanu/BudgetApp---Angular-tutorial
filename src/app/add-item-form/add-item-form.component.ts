@@ -32,10 +32,7 @@ export class AddItemFormComponent implements OnInit {
   }
 
   onClearSums(){
-    // Clear budgetItems Array
-    // Clear budget-items container 
-    // Update total budget display
-    //
+    //emit the event
 
   }
 

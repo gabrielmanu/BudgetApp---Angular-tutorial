@@ -9,15 +9,15 @@ import { UpdateEvent } from "../budget-item-list/budget-item-list.component";
 })
 export class MainPageComponent implements OnInit {
   budgetItems: BudgetItem[] = new Array<BudgetItem>();
-  totalBudget: number = 0;
+  totalBudget: any;
   constructor() {}
 
   ngOnInit() {}
 
   addItem(newItem: BudgetItem) {
     this.budgetItems.push(newItem);
-    this.totalBudget += newItem.amount;
-    console.log(this.budgetItems);
+    this.totalBudget = this.budgetItems.map(obj => obj.amount).reduce((acc, value) => acc + value, 0);
+    console.log(this.totalBudget);
   }
 
   deleteItem(item: BudgetItem) {
