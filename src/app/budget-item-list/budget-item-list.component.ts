@@ -32,7 +32,8 @@ export class BudgetItemListComponent implements OnInit {
  
 
 
-
+  // cfe: nice use of MatDialog, now delete it and use dynamic components:
+  // https://angular.io/guide/dynamic-component-loader
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {

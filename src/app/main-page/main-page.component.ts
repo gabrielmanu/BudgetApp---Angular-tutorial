@@ -33,7 +33,15 @@ export class MainPageComponent implements OnInit {
       updateEvent.new;
     //updatetotal budget
 
+    // cfe: create a get-er for totalBudget, 
     this.totalBudget -= updateEvent.old.amount;
     this.totalBudget += updateEvent.new.amount;
+  }
+
+  onClearClick(){
+
+    // Clear budgetItems Array
+    // Clear budget-items container 
+    // Update total budget display
   }
 }
