@@ -33,7 +33,11 @@
         [disabled]="!itemForm.valid">
         <p *ngIf="isNewItem">Add</p>
         <p *ngIf="!isNewItem">Save</p>
-      </button>
+        </button>
+        
+      </div>
+      <div class="field is-narrow ">
+        <button class="button is-danger is-light" (click)="onClearSums()">Clear</button>
       </div>
     </div>
   </div>
