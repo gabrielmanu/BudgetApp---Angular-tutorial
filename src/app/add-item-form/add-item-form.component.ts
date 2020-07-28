@@ -11,6 +11,7 @@ export class AddItemFormComponent implements OnInit {
   @Input() item:BudgetItem;
   @Output() formSubmit: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>();
   // cfe: new @Output: clearClick
+  @Output() resetButton: EventEmitter<any> = new EventEmitter<any>();
 
   isNewItem: boolean;
   constructor() { }
@@ -31,9 +32,9 @@ export class AddItemFormComponent implements OnInit {
     form.reset();
   }
 
-  onClearSums(){
-    //emit the event
-
+  onResetButtonClicked(){
+    this.resetButton.emit();
+    console.log("add item form event emitted")
   }
 
 }
