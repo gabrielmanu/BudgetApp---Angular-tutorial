@@ -1,4 +1,4 @@
-import { Component, OnInit,  Inject } from '@angular/core';
+import { Component, OnInit,  Inject, EventEmitter } from '@angular/core';
 import { BudgetItem } from 'src/shared/models/budget-item.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -9,17 +9,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class EditItemModelComponent implements OnInit {
 
+  public item: BudgetItem;
+  public submitted: EventEmitter<BudgetItem> = new EventEmitter();
 
-  constructor(
-    public dialogRef: MatDialogRef<EditItemModelComponent>,
-    @Inject(MAT_DIALOG_DATA) public item: BudgetItem) {}
+
+  constructor() {}
   
 
   ngOnInit(): void {
   }
 
   onSubmitted(updatedItem: BudgetItem) {
-    this.dialogRef.close(updatedItem);
+    // this.dialogRef.close(updatedItem);
+
+    this.submitted.emit(updatedItem);
   }
 
 }

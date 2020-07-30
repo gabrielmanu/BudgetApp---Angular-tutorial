@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ComponentFactoryResolver, ViewChild } from "@angular/core";
 import { BudgetItem } from "src/shared/models/budget-item.model";
 import { MatDialog } from "@angular/material/dialog";
 import { EditItemModelComponent } from "../edit-item-model/edit-item-model.component";
@@ -14,6 +14,9 @@ export interface UpdateEvent {
   styleUrls: ["./budget-item-list.component.scss"],
 })
 export class BudgetItemListComponent implements OnInit {
+
+  @ViewChild("vf", {read: ViewContainerRef}) vf: ViewContainerRef;
+
   @Input() budgetItems: BudgetItem[];
   @Output() delete: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>();
   @Output() update: EventEmitter<UpdateEvent> = new EventEmitter<UpdateEvent>();
@@ -27,7 +30,7 @@ export class BudgetItemListComponent implements OnInit {
 
   // cfe: nice use of MatDialog, now delete it and use dynamic components:
   // https://angular.io/guide/dynamic-component-loader
-  constructor(public dialog: MatDialog) {}
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {}
 
@@ -36,18 +39,33 @@ export class BudgetItemListComponent implements OnInit {
   }
 
   onCardClicked(item: BudgetItem) {
+
+    let resolver = this.componentFactoryResolver.resolveComponentFactory(EditItemModelComponent);
+
+    const comonentRef = this.vf.createComponent(resolver);
+
+    comonentRef.instance.item = item;
+    comonentRef.instance.submitted.subscribe(() => console.log('SUBBMITED'))
+
+
+
+    // setTimeout(() => comonentRef.destroy(), 2000);
+
+
+    console.log('comonentRef ', comonentRef);
+
     // show edit model
-    const dialogRef = this.dialog.open(EditItemModelComponent, {
-      width: "580px",
-      data: item,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.update.emit({
-          old: item,
-          new: result,
-        });
-      }
-    });
+    // const dialogRef = this.dialog.open(EditItemModelComponent, {
+    //   width: "580px",
+    //   data: item,
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.update.emit({
+    //       old: item,
+    //       new: result,
+    //     });
+    //   }
+    // });
   }
 }
