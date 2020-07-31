@@ -42,7 +42,7 @@ export class MainPageComponent implements OnInit {
 
   }
 
-  onResetClick() {
+  onClearClick() {
     console.log('mainpage event emitted')
     // Clear budgetItems Array
     this.budgetItems = [];
