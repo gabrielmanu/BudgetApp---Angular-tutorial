@@ -39,11 +39,11 @@ export class MainPageComponent implements OnInit {
     this.budgetItems[this.budgetItems.indexOf(updateEvent.old)] =
       updateEvent.new;
     //updatetotal budget
+    
 
   }
 
   onClearClick() {
-    console.log('mainpage event emitted')
     // Clear budgetItems Array
     this.budgetItems = [];
     console.log(this.budgetItems)

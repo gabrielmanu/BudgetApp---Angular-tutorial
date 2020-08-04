@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ComponentFactoryResolver, ViewChild } from "@angular/core";
 import { BudgetItem } from "src/shared/models/budget-item.model";
-import { MatDialog } from "@angular/material/dialog";
 import { EditItemModelComponent } from "../edit-item-model/edit-item-model.component";
 
 export interface UpdateEvent {
@@ -42,30 +41,38 @@ export class BudgetItemListComponent implements OnInit {
 
     let resolver = this.componentFactoryResolver.resolveComponentFactory(EditItemModelComponent);
 
-    const comonentRef = this.vf.createComponent(resolver);
+    const componentRef = this.vf.createComponent(resolver);
 
-    comonentRef.instance.item = item;
-    comonentRef.instance.submitted.subscribe(() => console.log('SUBBMITED'))
+    componentRef.instance.item = item;
+    // componentRef.instance.submitted.subscribe(() => console.log('SUBBMITED'))
+    componentRef.instance.submitted.subscribe((result) => {
+      if (result) {
+        this.update.emit({
+          old: item,
+          new: result,
+        });
+      }
+    });
 
 
 
     // setTimeout(() => comonentRef.destroy(), 2000);
 
 
-    console.log('comonentRef ', comonentRef);
+    console.log('componentRef ', componentRef);
 
-    // show edit model
-    // const dialogRef = this.dialog.open(EditItemModelComponent, {
-    //   width: "580px",
-    //   data: item,
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.update.emit({
-    //       old: item,
-    //       new: result,
-    //     });
-    //   }
-    // });
+    //   show edit model
+    //   const dialogRef = this.dialog.open(EditItemModelComponent, {
+    //     width: "580px",
+    //     data: item,
+    //   });
+    //   dialogRef.afterClosed().subscribe((result) => {
+    //     if (result) {
+    //       this.update.emit({
+    //         old: item,
+    //         new: result,
+    //       });
+    //     }
+    //   });  
   }
 }

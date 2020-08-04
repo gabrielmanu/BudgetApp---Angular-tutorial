@@ -10,8 +10,7 @@ import { BudgetItem } from 'src/shared/models/budget-item.model';
 export class AddItemFormComponent implements OnInit {
   @Input() item:BudgetItem;
   @Output() formSubmit: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>();
-  // cfe: new @Output: clearClick
-  @Output() clearButton: EventEmitter<any> = new EventEmitter<any>();
+  
 
   isNewItem: boolean;
   constructor() { }
@@ -30,11 +29,6 @@ export class AddItemFormComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.formSubmit.emit(form.value);
     form.reset();
-  }
-
-  onClearButtonClicked(){
-    this.clearButton.emit();
-    console.log("add item form event emitted")
   }
 
 }
