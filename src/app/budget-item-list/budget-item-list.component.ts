@@ -51,12 +51,12 @@ export class BudgetItemListComponent implements OnInit {
           old: item,
           new: result,
         });
+        componentRef.destroy();
       }
     });
 
 
 
-    // setTimeout(() => comonentRef.destroy(), 2000);
 
 
     console.log('componentRef ', componentRef);

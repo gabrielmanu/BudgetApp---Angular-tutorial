@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BudgetItem } from 'src/shared/models/budget-item.model';
 
 
@@ -11,6 +11,7 @@ export class EditItemModelComponent implements OnInit {
 
   public item: BudgetItem;
   public submitted: EventEmitter<BudgetItem> = new EventEmitter();
+  @Output() overlayClick: EventEmitter<any> = new EventEmitter<any>();
   
 
   constructor() {}
@@ -20,10 +21,13 @@ export class EditItemModelComponent implements OnInit {
   }
 
   onSubmitted(updatedItem: BudgetItem) {
-
-
     this.submitted.emit(updatedItem);
 
+  }
+
+  onOverlayClicked(){
+    this.overlayClick.emit();
+    console.log('overlay was clicked')
   }
 
 }
